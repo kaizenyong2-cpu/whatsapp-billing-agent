@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { processIncomingMessage } from './services/aiService.js';
+import { sendWhatsAppMessage } from './services/whatsappService.js';
 
 dotenv.config();
 
@@ -38,9 +39,16 @@ app.post('/webhook', async (req, res) => {
 
           console.log(`[Incoming Message] From: ${from} | Text: "${messageText}"`);
 
-          // Process message with AI engine
+          // 1. Process message with AI engine
           const reply = await processIncomingMessage(messageText, from);
-          console.log(`[AI Response]:\n${reply}`);
+          console.log(`[AI Response Generated]:\n${reply}`);
+
+          // 2. Send AI response back to user via WhatsApp API
+          try {
+            await sendWhatsAppMessage(from, reply);
+          } catch (err) {
+            console.error(`Failed to deliver message to ${from}`);
+          }
         }
       }
     }

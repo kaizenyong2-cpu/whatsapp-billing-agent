@@ -23,7 +23,7 @@ This project explores the integration of autonomous AI agents into backend finan
 ## Setup & Running Locally
 ```bash
 # Clone repository
-git clone [https://github.com/your-username/autobilling-agent.git](https://github.com/your-username/autobilling-agent.git)
+git clone https://github.com/kaizenyong2-cpu/whatsapp-billing-agent.git
 
 # Install dependencies
 npm install
